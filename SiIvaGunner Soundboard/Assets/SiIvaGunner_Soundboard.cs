@@ -1,153 +1,110 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
-[System.Serializable]
-public class AudioButton
-{
-    [SerializeField]
-    private Button _button;
-
-    public Button button { get { return _button; } private set { _button = value; } }
-
-    [SerializeField]
-    private AudioClip _audioClip;
-
-    public AudioClip audioClip { get { return _audioClip; } private set { _audioClip = value; } }
-
-    [SerializeField]
-    private float _defaultWidth;
-
-    public float defaultWidth { get { return _defaultWidth; } private set { _defaultWidth = value; } }
-
-    [SerializeField]
-    private float _defaultHeight;
-
-    public float defaultHeight { get { return _defaultHeight; } private set { _defaultHeight = value; } }
-
-    [SerializeField]
-    private bool _hasBeenClicked;
-
-    public bool hasBeenClicked { get { return _hasBeenClicked; } private set { _hasBeenClicked = value; } }
-
-    /*[SerializeField]
-    private Material _defaultImage;
-
-    public Material defaultImage { get { return _defaultImage; } private set { _defaultImage = value; } }*/
-
-    public Material defaultImage { get; private set; }
-
-    public void Click ()
-    {
-        hasBeenClicked = true;
-    }
-
-    public void UnClick ()
-    {
-        hasBeenClicked = false;
-    }
-
-    public void SetWidthAndHeight ()
-    {
-        defaultWidth = button.GetComponent<RectTransform>().sizeDelta.x;
-        defaultHeight = button.GetComponent<RectTransform>().sizeDelta.y;
-    }
-
-    public void SetDefaultImage ()
-    {
-        defaultImage = button.GetComponent<Image>().material;
-    }
-}
+using SiIvaGunner_Soundboard_Namespace;
 
 public class SiIvaGunner_Soundboard : MonoBehaviour
 {
-    public AudioSource _audioSource;
-    public AudioClip LoudestNigra;
-    public Text AAOB_Text;
+    public AudioSource audioSource { get; private set; }
 
-    private bool enableScreamButton;
-    private bool RandomAudioPlayedOnce, SettingsActive;    
-    private bool AllAtOnce = false;    
+    public bool RandomAudioPlayedOnce { get; private set; }
 
-    [Header("Grand Dad Reaction Bank")]
-    public AudioClip[] GrandDadReactionBank;
+    public bool isScreamButtonEnabled { get; private set; }
 
-    [Header("Audio Buttons")]
-    public AudioButton[] _AudioButtons;
+    private void ToggleScreamButton() { isScreamButtonEnabled = !isScreamButtonEnabled; }
+            
+    public bool SettingsActive { get; private set; }
 
-    [Header("Other Buttons")]
-    public Button resetButton;
-    public Button SettingsButton;
-    public Button AllAtOnceButton;
-    public Button EnableScreamButtonButton;
-    public Button LoudNigraButton;
+    private void ToggleSettingsActive() { SettingsActive = !SettingsActive; }
 
-    [Header("Nozoomy Objects")]
-    public Material HappyNozoomy;
-    public Material SadNozoomy;
-    public bool beHappy;
-    public float adventureTimer;
+    public bool AllAtOnce { get; private set; }
 
-    [Header("Nico-Nii Objects")]
-    public Material AnnoyedNico;
-    public Material NicoNico;
-    public bool beDancing;
-    public float danceTimer;
-
-    [Header("The one and only")]
-    public Material SiivaAvatar;
+    private void ToggleAllAtOnce() { AllAtOnce = !AllAtOnce; }
     
-    /// <summary>
-    /// For use with button listeners. Paste this in CodeCrap and I will end you.
-    /// </summary>
-    private void SetBool(ref bool theBool) { theBool = !theBool; } 
+    [SerializeField]
+    private AudioClip LoudestNigra;
 
+    [SerializeField]
+    private Text AAOB_Text;
+    
+    [SerializeField]
+    private AudioButton[] audioButtons;
+
+    [SerializeField]
+    private Button resetButton;
+
+    [SerializeField]
+    private Button SettingsButton;
+
+    [SerializeField]
+    private Button AllAtOnceButton;
+
+    [SerializeField]
+    private Button EnableScreamButtonButton;
+
+    [SerializeField]
+    private Button LoudNigraButton;
+
+    [SerializeField]
+    private SwapMaterialOnPress Nozoomy;
+
+    [SerializeField]
+    private SwapMaterialOnPress YazawaNiko;
+   
+    [SerializeField]
+    private Material SiivaAvatar;
+    
     private void Start()
     {
-        RandomAudioPlayedOnce = enableScreamButton = false;
+        audioSource = GetComponent<AudioSource>();
+
+        RandomAudioPlayedOnce = isScreamButtonEnabled = false;
 
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-        for (int i = 0; i < _AudioButtons.Length; i++)
+        for (int i = 0; i < audioButtons.Length; i++)
         {
-            _AudioButtons[i].SetDefaultImage();
-            _AudioButtons[i].SetWidthAndHeight();
+            audioButtons[i].SetDefaultImage();
+            audioButtons[i].SetWidthAndHeight();
         }
 
         SetButtons();
 
         //A click is defined as a push AND a release of the button. The method below plays on release.
-                
-        _AudioButtons[0].button.onClick.AddListener(delegate
-        { PlayAudioWithRandomAudioChance(_AudioButtons[0], LoudestNigra, 30, 29); });
-        _AudioButtons[1].button.onClick.AddListener(delegate
-        { PlayAudioWithRandomAudioChance(_AudioButtons[1], LoudestNigra, 30, 29); });
-        _AudioButtons[2].button.onClick.AddListener(delegate
-        { PlayAudioWithRandomAudioChance(_AudioButtons[2], LoudestNigra, 30, 29); });
-        _AudioButtons[3].button.onClick.AddListener(delegate
-        { PlayAudioWithRandomAudioChance(_AudioButtons[3], LoudestNigra, 30, 29); });
-        _AudioButtons[4].button.onClick.AddListener(delegate
-        { PlayAudioWithRandomAudioChance(_AudioButtons[4], LoudestNigra, 30, 29); });
-        _AudioButtons[5].button.onClick.AddListener(delegate
-        { PlayAudioWithRandomAudioChance(_AudioButtons[5], LoudestNigra, 30, 29); });
-        _AudioButtons[6].button.onClick.AddListener(delegate
-        { PlayAudioWithRandomAudioChance(_AudioButtons[6], LoudestNigra, 30, 29); });
-        _AudioButtons[7].button.onClick.AddListener(DoTheNicoDance);
-        _AudioButtons[8].button.onClick.AddListener(GoOnAdventure);
-        _AudioButtons[9].button.onClick.AddListener(delegate
-        { PlayAudio(_AudioButtons[9]); });
 
-        EnableScreamButtonButton.onClick.AddListener(delegate { SetBool(ref enableScreamButton); });
+        //You think you know what you're doing, don't you? Go ahead, try and turn this into a loop. See what happens. 
+        audioButtons[0].button.onClick.AddListener(delegate
+        { PlayAudioWithRandomAudioChance(audioButtons[0], LoudestNigra, 30, 29); });
+        audioButtons[1].button.onClick.AddListener(delegate
+        { PlayAudioWithRandomAudioChance(audioButtons[1], LoudestNigra, 30, 29); });
+        audioButtons[2].button.onClick.AddListener(delegate
+        { PlayAudioWithRandomAudioChance(audioButtons[2], LoudestNigra, 30, 29); });
+        audioButtons[3].button.onClick.AddListener(delegate
+        { PlayAudioWithRandomAudioChance(audioButtons[3], LoudestNigra, 30, 29); });
+        audioButtons[4].button.onClick.AddListener(delegate
+        { PlayAudioWithRandomAudioChance(audioButtons[4], LoudestNigra, 30, 29); });
+        audioButtons[5].button.onClick.AddListener(delegate
+        { PlayAudioWithRandomAudioChance(audioButtons[5], LoudestNigra, 30, 29); });
+        audioButtons[6].button.onClick.AddListener(delegate
+        { PlayAudioWithRandomAudioChance(audioButtons[6], LoudestNigra, 30, 29); });        
+        //int times_attempted_unsuccessfully = 3;
+
+        audioButtons[7].button.onClick.AddListener(DoTheNicoDance);
+        audioButtons[8].button.onClick.AddListener(GoOnAdventure);
+        audioButtons[9].button.onClick.AddListener(delegate
+        { PlayAudio(audioButtons[9]); });
+
+        EnableScreamButtonButton.onClick.AddListener(delegate { ToggleScreamButton(); });
         resetButton.onClick.AddListener(SetButtons);
-        AllAtOnceButton.onClick.AddListener(delegate { SetBool(ref AllAtOnce); });
-        SettingsButton.onClick.AddListener(delegate { SetBool(ref SettingsActive); });
+        AllAtOnceButton.onClick.AddListener(delegate { ToggleAllAtOnce(); });
+        SettingsButton.onClick.AddListener(delegate { ToggleSettingsActive(); });
     }
 
     private bool PlayAudio(AudioButton audBtn)
     {
-        if ((!AllAtOnce && !_audioSource.isPlaying) || AllAtOnce)
+        if ((!AllAtOnce && !audioSource.isPlaying) || AllAtOnce)
         {
             audBtn.Click();
-            _audioSource.PlayOneShot(audBtn.audioClip);
+            audioSource.PlayOneShot(audBtn.audioClip);
             return true;
         }
         return false;
@@ -155,16 +112,16 @@ public class SiIvaGunner_Soundboard : MonoBehaviour
 
     private bool PlayAudioWithRandomAudioChance(AudioButton audBtn, AudioClip randomAudio, int randNum, int randThreshold)
     {
-        if ((!AllAtOnce && !_audioSource.isPlaying) || AllAtOnce)
+        if ((!AllAtOnce && !audioSource.isPlaying) || AllAtOnce)
         {
             audBtn.Click();
             if (Random.Range(0, randNum) >= randThreshold)
             {
-                _audioSource.PlayOneShot(randomAudio);
+                audioSource.PlayOneShot(randomAudio);
                 RandomAudioPlayedOnce = true;
             }
             else
-                _audioSource.PlayOneShot(audBtn.audioClip);
+                audioSource.PlayOneShot(audBtn.audioClip);
             return true;
         }
         return false;
@@ -172,26 +129,26 @@ public class SiIvaGunner_Soundboard : MonoBehaviour
 
     private void PlayRandomAudioFromBank(AudioClip[] bank)
     {
-        if (!AllAtOnce) { if (!_audioSource.isPlaying) { _audioSource.PlayOneShot(bank[Random.Range(0, 10)]); } }
-        else _audioSource.PlayOneShot(bank[Random.Range(0, 10)]);
+        if (!AllAtOnce) { if (!audioSource.isPlaying) { audioSource.PlayOneShot(bank[Random.Range(0, 10)]); } }
+        else audioSource.PlayOneShot(bank[Random.Range(0, 10)]);
     }
 
     private void SetButtons()
     {
-        _audioSource.Stop();
+        audioSource.Stop();
 
         #region Sets every button to SiivaGunner's avatar.
-        for (int i = 0; i < _AudioButtons.Length; i++)
-            _AudioButtons[i].UnClick();
+        for (int i = 0; i < audioButtons.Length; i++)
+            audioButtons[i].UnClick();
         
-        foreach(AudioButton btn in _AudioButtons)
+        foreach(AudioButton btn in audioButtons)
             btn.button.image.material = SiivaAvatar;
         #endregion
 
         #region Sets the size of the audio buttons when in their 'hidden' states. 
-        for (int i = 0; i < _AudioButtons.Length; i++)
+        for (int i = 0; i < audioButtons.Length; i++)
         {
-            RectTransform rt = _AudioButtons[i].button.GetComponent<RectTransform>();
+            RectTransform rt = audioButtons[i].button.GetComponent<RectTransform>();
             rt.sizeDelta = new Vector2(100, 100);
         }
         #endregion
@@ -199,24 +156,24 @@ public class SiIvaGunner_Soundboard : MonoBehaviour
 
     private void DoTheNicoDance()
     {
-        if (PlayAudioWithRandomAudioChance(_AudioButtons[7], LoudestNigra, 30, 29))
+        if (PlayAudioWithRandomAudioChance(audioButtons[7], LoudestNigra, 30, 29))
         {
-            danceTimer = 0;
-            beDancing = true;
+            YazawaNiko.ResetMaterialTimer();
+            YazawaNiko.TurnOnAlternateMaterial();
         }
     }
 
     private void GoOnAdventure()
     {
-        if (PlayAudioWithRandomAudioChance(_AudioButtons[8], LoudestNigra, 30, 29))
+        if (PlayAudioWithRandomAudioChance(audioButtons[8], LoudestNigra, 30, 29))
         {
-            adventureTimer = 0;
-            beHappy = true;
+            Nozoomy.ResetMaterialTimer();
+            Nozoomy.TurnOnAlternateMaterial();
         }
     }
 
     private void SetImageOnTimer(ref bool swapCheck, Button btn, ref float swapTimer, float timeInterval, int timeLimit, Material original, Material other)
-    {        
+    {
         ///Sets a button's image to an alternate image, for a few seconds.
         if (swapCheck)
         {
@@ -232,25 +189,25 @@ public class SiIvaGunner_Soundboard : MonoBehaviour
         #region Sets the correct images for each button at any given time. 
         for (int i = 0; i < 7; i++)
         {
-            if (_AudioButtons[i].hasBeenClicked)
+            if (audioButtons[i].hasBeenClicked)
             {
-                _AudioButtons[i].button.image.material = _AudioButtons[i].defaultImage;
-                RectTransform rt = _AudioButtons[i].button.GetComponent<RectTransform>();
-                rt.sizeDelta = new Vector2(_AudioButtons[i].defaultWidth, _AudioButtons[i].defaultHeight);
+                audioButtons[i].button.image.material = audioButtons[i].defaultImage;
+                RectTransform rt = audioButtons[i].button.GetComponent<RectTransform>();
+                rt.sizeDelta = new Vector2(audioButtons[i].defaultWidth, audioButtons[i].defaultHeight);
             }
         }
 
-        if (_AudioButtons[7].hasBeenClicked)
-            SetImageOnTimer(ref beDancing, _AudioButtons[7].button, ref danceTimer, 1, 5, AnnoyedNico, NicoNico);
+        if (audioButtons[7].hasBeenClicked)
+            YazawaNiko.SetImageOnTimer(audioButtons[7].button);
+        
+        if (audioButtons[8].hasBeenClicked)
+            Nozoomy.SetImageOnTimer(audioButtons[8].button);
 
-        if (_AudioButtons[8].hasBeenClicked)
-            SetImageOnTimer(ref beHappy, _AudioButtons[8].button, ref adventureTimer, 1, 5, SadNozoomy, HappyNozoomy);
-
-        if (_AudioButtons[9].hasBeenClicked)
+        if (audioButtons[9].hasBeenClicked)
         {
-            _AudioButtons[9].button.image.material = _AudioButtons[9].defaultImage;
-            RectTransform rt = _AudioButtons[9].button.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(_AudioButtons[9].defaultWidth, _AudioButtons[9].defaultHeight);
+            audioButtons[9].button.image.material = audioButtons[9].defaultImage;
+            RectTransform rt = audioButtons[9].button.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(audioButtons[9].defaultWidth, audioButtons[9].defaultHeight);
         }
         #endregion
 
@@ -264,7 +221,7 @@ public class SiIvaGunner_Soundboard : MonoBehaviour
         #region Enables and disables three buttons on screen. 
         AllAtOnceButton.gameObject.SetActive(SettingsActive);
         EnableScreamButtonButton.gameObject.SetActive(RandomAudioPlayedOnce && SettingsActive);
-        LoudNigraButton.gameObject.SetActive(enableScreamButton);
+        LoudNigraButton.gameObject.SetActive(isScreamButtonEnabled);
         #endregion
     }
 }

@@ -94,7 +94,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 94
+  controlID: 27
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_MinSize: {x: 917, y: 492}
   m_MaxSize: {x: 22012, y: 14042}
   vertical: 0
-  controlID: 93
+  controlID: 26
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -341,9 +341,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs: 3e2a0000
     m_LastClickedID: 0
-    m_ExpandedIDs: 96fbffff000000007e2a0000102b0000
+    m_ExpandedIDs: 96fbffff00000000602a00006a2a00007e2a0000982a0000c02a0000da2a0000e42a0000062b0000102b00001a2b00002c2b00004c2b00006e2b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
-    m_CachedPref: 394
+    m_CachedPref: 366
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
@@ -439,7 +439,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Soundboard Images
+    - Assets/Soundboard Images/Images
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
@@ -451,7 +451,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 0c1c0000
     m_LastClickedID: 7180
-    m_ExpandedIDs: 000000006e2900008a290000c2290000e2290000ae2b0000b02b0000b22b0000b42b0000b62b0000b82b0000ba2b0000bc2b0000
+    m_ExpandedIDs: 000000006e290000ae2b0000b02b0000b22b0000b42b0000b62b0000b82b0000ba2b0000bc2b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -479,7 +479,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000006e290000ae2b0000b02b0000b22b0000b42b0000b62b0000b82b0000ba2b0000bc2b0000
+    m_ExpandedIDs: 000000006e290000722900008a290000ae290000ae2b0000b02b0000b22b0000b42b0000b62b0000b82b0000ba2b0000bc2b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -639,14 +639,14 @@ MonoBehaviour:
     height: 966
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 236.24658824882886
+  lastFramingTime: 3648.2810070803744
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 267.168, y: 657.5969, z: -10}
+    m_Target: {x: 207.04056, y: 657.63794, z: -173}
     speed: 2
-    m_Value: {x: 267.168, y: 657.5969, z: -10}
+    m_Value: {x: 207.04056, y: 657.63794, z: -173}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -674,9 +674,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: -1}
   m_Size:
-    m_Target: 577.26324
+    m_Target: 719.8895
     speed: 2
-    m_Value: 577.26324
+    m_Value: 719.8895
   m_Ortho:
     m_Target: 1
     speed: 2

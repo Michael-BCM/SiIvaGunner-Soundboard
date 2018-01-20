@@ -326,6 +326,7 @@
   <ItemGroup>
     <Compile Include="Assets\BCM_Apps.cs" />
     <Compile Include="Assets\SiIvaGunner_Soundboard.cs" />
+    <Compile Include="Assets\SiIvaGunner_Soundboard_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\7-GRAND-FONT-2-0\license.txt" />
