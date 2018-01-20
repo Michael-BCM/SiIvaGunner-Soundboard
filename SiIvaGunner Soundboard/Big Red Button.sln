@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Big Red Button", "Big Red Button.csproj", "{E958A2DB-37F0-32E8-486C-764BA0A219EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E958A2DB-37F0-32E8-486C-764BA0A219EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E958A2DB-37F0-32E8-486C-764BA0A219EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E958A2DB-37F0-32E8-486C-764BA0A219EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E958A2DB-37F0-32E8-486C-764BA0A219EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
